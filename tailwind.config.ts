@@ -22,6 +22,8 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          600: "hsl(var(--primary-600))",
+          glow: "hsl(var(--primary-glow))"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -57,6 +59,24 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        whatsapp: {
+          DEFAULT: "hsl(var(--whatsapp))",
+          dark: "hsl(var(--whatsapp-dark))",
+          bg: "hsl(var(--whatsapp-bg))",
+          bubble: "hsl(var(--whatsapp-bubble-out))"
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+      },
+      boxShadow: {
+        glow: 'var(--shadow-glow)',
+        float: 'var(--shadow-float)',
+        card: 'var(--shadow-card)'
+      },
+      backgroundImage: {
+        'gradient-hero': 'var(--gradient-hero)',
+        'gradient-primary': 'var(--gradient-primary)'
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -80,10 +100,20 @@ export default {
             height: "0",
           },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-6px)' }
+        },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        float: "float 6s ease-in-out infinite",
+        "fade-in": "fade-in 0.3s ease-out"
       },
     },
   },
