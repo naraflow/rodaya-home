@@ -2,12 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-interface Message {
-  text: string | (() => string);
-  type: 'bot' | 'user';
-  delay: number;
-}
-
 interface ChatState {
   currentMenu: string;
   sessionData: {
@@ -19,11 +13,15 @@ interface ChatState {
   currentOutlet: string | null;
 }
 
+interface MenuData {
+  message?: string;
+  options?: { [key: string]: { next: string } };
+  generate?: () => string;
+}
+
 const ChatDemo = () => {
   const [messages, setMessages] = useState<Array<{ text: string; type: 'bot' | 'user'; time: string }>>([]);
   const [inputValue, setInputValue] = useState("");
-  const [isDemoPlaying, setIsDemoPlaying] = useState(true);
-  const [demoIndex, setDemoIndex] = useState(0);
   const [chatState, setChatState] = useState<ChatState>({
     currentMenu: 'main',
     sessionData: {
@@ -36,31 +34,51 @@ const ChatDemo = () => {
   });
   
   const chatBodyRef = useRef<HTMLDivElement>(null);
-  const demoTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const mainMenuText = "👋 Selamat datang, Motoris!<br><br>Silakan pilih menu:<br>1. Kunjungan Outlet<br>2. Input Stok & Order<br>3. Update Display POSM<br>4. Laporan Harian<br>0. Kembali<br><br><i>Ketik angka menu yang Anda pilih</i>";
-
-  const demoFlow: Message[] = [
-    { text: mainMenuText, type: 'bot', delay: 800 },
-    { text: '1', type: 'user', delay: 1000 },
-    { text: 'toko joni', type: 'user', delay: 1100 },
-    { text: "Toko ditemukan: <b>toko joni</b><br>Alamat: Jl. Joni No. 5, Bekasi<br><br>Ketik 'ya' untuk melanjutkan kunjungan atau 'batal' untuk kembali.", type: 'bot', delay: 1200 },
-    { text: 'ya', type: 'user', delay: 900 },
-    { text: "✅ Kunjungan ke outlet berhasil dicatat.<br><br>Ketik '0' untuk kembali ke menu utama.", type: 'bot', delay: 900 },
-    { text: '0', type: 'user', delay: 700 },
-    { text: mainMenuText, type: 'bot', delay: 900 },
-    { text: '2', type: 'user', delay: 1000 },
-    { text: 'Stok:10, Beli:5, Catatan: kosong', type: 'user', delay: 1000 },
-    { text: "Data stok & order diterima. Apakah sudah benar?<br><br>Balas 'ya' untuk simpan atau 'edit' untuk perbaikan.", type: 'bot', delay: 1100 },
-    { text: 'ya', type: 'user', delay: 800 },
-    { text: '✅ Data stok & order disimpan.<br><br>Ketik "0" untuk kembali ke menu utama.', type: 'bot', delay: 900 },
-    { text: '0', type: 'user', delay: 700 },
-    { text: mainMenuText, type: 'bot', delay: 900 },
-    { text: '4', type: 'user', delay: 1000 },
-    { text: () => `Ringkasan kunjungan hari ini:<br>- Total kunjungan: ${chatState.sessionData.totalVisits} outlet<br>- Total order: ${chatState.sessionData.totalOrder} pack<br>- Total POSM dipasang: ${chatState.sessionData.posmCount} item<br><br>Ketik '0' untuk kembali ke menu utama.`, type: 'bot', delay: 1200 },
-    { text: '0', type: 'user', delay: 800 },
-    { text: '👋 Demo selesai. Percakapan akan diulang otomatis.', type: 'bot', delay: 1200 }
-  ];
+  const menus: { [key: string]: MenuData } = {
+    main: {
+      message: "👋 Selamat datang, Motoris!<br><br>Silakan pilih menu:<br>1. Kunjungan Outlet<br>2. Input Stok & Order<br>3. Update Display POSM<br>4. Laporan Harian<br>0. Kembali<br><br><i>Ketik angka menu yang Anda pilih</i>",
+      options: {
+        '1': { next: 'visit_start' },
+        '2': { next: 'stock_start' },
+        '3': { next: 'posm_start' },
+        '4': { next: 'report' },
+        '0': { next: 'main' }
+      }
+    },
+    visit_start: {
+      message: "Silakan ketik nama toko atau outlet yang Anda kunjungi."
+    },
+    visit_confirm: {
+      message: "Data pendaftaran outlet diterima. Apakah sudah benar?<br><br>Balas 'ya' untuk simpan atau 'edit' untuk perbaikan."
+    },
+    visit_finish: {
+      message: "✅ Outlet berhasil didaftarkan.<br><br>Ketik '0' untuk kembali ke menu utama."
+    },
+    stock_start: {
+      message: "Silakan tulis format:<br><code>Stok:10, Beli:5, Catatan: kosong</code><br><br>Ketik 'batal' untuk kembali."
+    },
+    stock_confirm: {
+      message: "Data stok & order diterima. Apakah sudah benar?<br><br>Balas 'ya' untuk simpan atau 'edit' untuk perbaikan."
+    },
+    stock_finish: {
+      message: "✅ Data stok & order disimpan.<br><br>Ketik '0' untuk kembali ke menu utama."
+    },
+    posm_start: {
+      message: "Silakan tulis format:<br><code>Jenis: Poster, Jumlah: 2, Catatan: sudah terpasang</code><br><br>Ketik 'batal' untuk kembali."
+    },
+    posm_confirm: {
+      message: "Data POSM diterima. Apakah sudah benar?<br><br>Balas 'ya' untuk simpan atau 'edit' untuk perbaikan."
+    },
+    posm_finish: {
+      message: "✅ Data POSM disimpan.<br><br>Ketik '0' untuk kembali ke menu utama."
+    },
+    report: {
+      generate: () => {
+        return `Ringkasan kunjungan hari ini:<br>- Total kunjungan: ${chatState.sessionData.totalVisits} outlet<br>- Total order: ${chatState.sessionData.totalOrder} pack<br>- Total POSM dipasang: ${chatState.sessionData.posmCount} item<br><br>Ketik '0' untuk kembali ke menu utama.`;
+      }
+    }
+  };
 
   const getCurrentTime = () => {
     return new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -83,47 +101,193 @@ const ChatDemo = () => {
     }, 100);
   };
 
-  const playDemo = () => {
-    if (!isDemoPlaying || demoIndex >= demoFlow.length) {
-      if (demoIndex >= demoFlow.length) {
-        // Reset demo
-        setTimeout(() => {
-          if (isDemoPlaying) {
-            setMessages([]);
-            setDemoIndex(0);
-            playDemo();
+  const getBotResponse = (input: string) => {
+    let response = { message: "Pilihan tidak valid. Silakan coba lagi.", nextMenu: chatState.currentMenu };
+    const currentMenuData = menus[chatState.currentMenu];
+
+    switch (chatState.currentMenu) {
+      case 'main':
+        if (currentMenuData.options && currentMenuData.options[input]) {
+          response.nextMenu = currentMenuData.options[input].next;
+          if (response.nextMenu === 'report') {
+            response.message = menus.report.generate!();
+          } else {
+            response.message = menus[response.nextMenu].message!;
           }
-        }, 2500);
-      }
-      return;
+        } else if (input === '0') {
+          response.message = menus.main.message!;
+          response.nextMenu = 'main';
+        } else {
+          response.message = `Pilihan tidak valid. Silakan coba lagi.<br><br>${currentMenuData.message}`;
+        }
+        break;
+
+      case 'visit_start':
+        setChatState(prev => ({ ...prev, currentOutlet: input }));
+        if (chatState.sessionData.outletData[input]) {
+          response.message = `Toko ditemukan: <b>${input}</b><br>Alamat: ${chatState.sessionData.outletData[input].address}<br><br>Ketik 'ya' untuk melanjutkan kunjungan atau 'batal' untuk kembali.`;
+          response.nextMenu = 'visit_found';
+        } else {
+          response.message = `Outlet tidak ditemukan. Silakan daftarkan outlet baru dengan format:<br><b>Daftar: Nama Toko, Alamat Lengkap</b>`;
+          response.nextMenu = 'register_outlet';
+        }
+        break;
+        
+      case 'visit_found':
+        if (input === 'ya') {
+          response.message = "✅ Kunjungan ke outlet berhasil dicatat.<br><br>Ketik '0' untuk kembali ke menu utama.";
+          response.nextMenu = 'main';
+          setChatState(prev => ({
+            ...prev,
+            sessionData: { ...prev.sessionData, totalVisits: prev.sessionData.totalVisits + 1 }
+          }));
+        } else if (input === 'batal') {
+          response.message = menus.main.message!;
+          response.nextMenu = 'main';
+        } else {
+          response.message = `Pilihan tidak valid. Ketik 'ya' atau 'batal'.`;
+        }
+        break;
+
+      case 'register_outlet':
+        if (input.toLowerCase().startsWith('daftar:')) {
+          const parts = input.substring(7).split(',');
+          if (parts.length >= 2) {
+            const namaToko = parts[0].trim();
+            const alamat = parts.slice(1).join(',').trim();
+            setChatState(prev => ({
+              ...prev,
+              sessionData: {
+                ...prev.sessionData,
+                outletData: { ...prev.sessionData.outletData, [namaToko]: { address: alamat } }
+              }
+            }));
+            response.message = menus.visit_confirm.message!;
+            response.nextMenu = 'visit_confirm';
+          } else {
+            response.message = `Format salah. Harap gunakan format:<br><b>Daftar: Nama Toko, Alamat Lengkap</b>`;
+          }
+        } else if (input === '0' || input === 'batal') {
+          response.message = menus.main.message!;
+          response.nextMenu = 'main';
+        } else {
+          response.message = `Pilihan tidak valid. Harap gunakan format pendaftaran atau ketik 'batal'.`;
+        }
+        break;
+
+      case 'visit_confirm':
+        if (input === 'ya') {
+          response.message = `✅ Outlet <b>${chatState.currentOutlet}</b> berhasil didaftarkan.<br><br>Ketik '0' untuk kembali ke menu utama.`;
+          response.nextMenu = 'main';
+          setChatState(prev => ({
+            ...prev,
+            sessionData: { ...prev.sessionData, totalVisits: prev.sessionData.totalVisits + 1 }
+          }));
+        } else if (input === 'edit') {
+          response.message = menus.visit_start.message!;
+          response.nextMenu = 'visit_start';
+        } else {
+          response.message = `Pilihan tidak valid. Balas 'ya' atau 'edit'.`;
+        }
+        break;
+
+      case 'stock_start':
+        if (input.toLowerCase().startsWith('stok:') || input.toLowerCase() === 'batal') {
+          if (input.toLowerCase() === 'batal') {
+            response.message = menus.main.message!;
+            response.nextMenu = 'main';
+          } else {
+            const parts = input.split(',').map(part => part.trim());
+            let order = 0;
+            parts.forEach(part => {
+              if (part.toLowerCase().startsWith('beli:')) {
+                order = parseInt(part.split(':')[1]?.trim() || '0') || 0;
+              }
+            });
+            setChatState(prev => ({
+              ...prev,
+              sessionData: { ...prev.sessionData, totalOrder: prev.sessionData.totalOrder + order }
+            }));
+            response.message = menus.stock_confirm.message!;
+            response.nextMenu = 'stock_confirm';
+          }
+        } else {
+          response.message = `Format salah. Silakan gunakan format:<br>${menus.stock_start.message}`;
+        }
+        break;
+
+      case 'stock_confirm':
+        if (input === 'ya') {
+          response.message = menus.stock_finish.message!;
+          response.nextMenu = 'main';
+        } else if (input === 'edit') {
+          response.message = menus.stock_start.message!;
+          response.nextMenu = 'stock_start';
+        } else {
+          response.message = `Pilihan tidak valid. Balas 'ya' atau 'edit'.`;
+        }
+        break;
+
+      case 'posm_start':
+        if (input.toLowerCase().startsWith('jenis:') || input.toLowerCase() === 'batal') {
+          if (input.toLowerCase() === 'batal') {
+            response.message = menus.main.message!;
+            response.nextMenu = 'main';
+          } else {
+            setChatState(prev => ({
+              ...prev,
+              sessionData: { ...prev.sessionData, posmCount: prev.sessionData.posmCount + 1 }
+            }));
+            response.message = menus.posm_confirm.message!;
+            response.nextMenu = 'posm_confirm';
+          }
+        } else {
+          response.message = `Format salah. Silakan gunakan format:<br>${menus.posm_start.message}`;
+        }
+        break;
+
+      case 'posm_confirm':
+        if (input === 'ya') {
+          response.message = menus.posm_finish.message!;
+          response.nextMenu = 'main';
+        } else if (input === 'edit') {
+          response.message = menus.posm_start.message!;
+          response.nextMenu = 'posm_start';
+        } else {
+          response.message = `Pilihan tidak valid. Balas 'ya' atau 'edit'.`;
+        }
+        break;
+
+      case 'report':
+        if (input === '0') {
+          response.message = menus.main.message!;
+          response.nextMenu = 'main';
+        } else {
+          response.message = `Pilihan tidak valid. Ketik '0' untuk kembali.`;
+        }
+        break;
     }
 
-    const currentMessage = demoFlow[demoIndex];
-    const messageText = typeof currentMessage.text === 'function' ? currentMessage.text() : currentMessage.text;
+    if (input === '0' && chatState.currentMenu !== 'main') {
+      response.message = menus.main.message!;
+      response.nextMenu = 'main';
+    }
 
-    demoTimeoutRef.current = setTimeout(() => {
-      addMessage(messageText, currentMessage.type);
-      setDemoIndex(prev => prev + 1);
-      playDemo();
-    }, currentMessage.delay);
+    return response;
   };
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return;
-    
-    // Stop demo on user interaction
-    setIsDemoPlaying(false);
-    if (demoTimeoutRef.current) {
-      clearTimeout(demoTimeoutRef.current);
-    }
 
     const userInput = inputValue.trim();
     addMessage(userInput, 'user');
     setInputValue('');
 
-    // Simple bot response for interactive mode
+    const response = getBotResponse(userInput.toLowerCase());
+
     setTimeout(() => {
-      addMessage("Terima kasih! Ini adalah demo interaktif. Dalam versi sebenarnya, bot akan merespons sesuai input Anda.", 'bot');
+      addMessage(response.message, 'bot');
+      setChatState(prev => ({ ...prev, currentMenu: response.nextMenu }));
     }, 500);
   };
 
@@ -134,21 +298,9 @@ const ChatDemo = () => {
   };
 
   useEffect(() => {
-    // Start demo on component mount
-    playDemo();
-    
-    return () => {
-      if (demoTimeoutRef.current) {
-        clearTimeout(demoTimeoutRef.current);
-      }
-    };
+    // Initialize with main menu
+    addMessage(menus.main.message!, 'bot');
   }, []);
-
-  useEffect(() => {
-    if (isDemoPlaying && demoIndex < demoFlow.length) {
-      playDemo();
-    }
-  }, [demoIndex, isDemoPlaying]);
 
   return (
     <section id="demo" className="py-20 px-4 bg-background text-center">
@@ -157,26 +309,20 @@ const ChatDemo = () => {
           Mockup Interaktif
         </h2>
         <p className="text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in">
-          Simulasi alur kerja Motoris—bisa diketik untuk mencoba. Jika tidak ada input, percakapan berjalan otomatis.
+          Simulasi alur kerja Motoris—ketik pesan untuk mencoba fitur lengkap bot WhatsApp.
         </p>
         
         <div className="flex items-center justify-center">
           <div 
-            className="w-full max-w-sm h-[640px] bg-gray-100 rounded-3xl shadow-float flex flex-direction-column overflow-hidden animate-float"
+            className="w-full max-w-md h-[90vh] max-h-[600px] bg-gray-100 rounded-3xl shadow-float flex flex-col overflow-hidden animate-float"
             role="region" 
             aria-label="Simulasi chat Rodaya"
           >
             {/* Chat Header */}
-            <div className="whatsapp-header text-white px-4 py-3 rounded-t-3xl flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-white/20" aria-hidden="true"></div>
-                <div className="flex flex-col text-left">
-                  <span className="font-semibold text-lg">Rodaya</span>
-                  <span className="text-xs opacity-90 flex items-center gap-1">
-                    <span className="inline-block w-2 h-2 rounded-full bg-green-400"></span>
-                    online
-                  </span>
-                </div>
+            <div className="whatsapp-header text-white px-4 py-4 rounded-t-3xl flex items-center">
+              <div className="flex flex-col text-left">
+                <span className="font-semibold text-lg">Rodaya</span>
+                <span className="text-xs opacity-90">Bot Motoris FMCG</span>
               </div>
             </div>
 
@@ -188,7 +334,7 @@ const ChatDemo = () => {
               {messages.map((message, index) => (
                 <div
                   key={index}
-                  className={`max-w-[85%] p-3 rounded-2xl text-sm animate-fade-in ${
+                  className={`max-w-[80%] p-3 rounded-2xl text-sm animate-fade-in ${
                     message.type === 'bot' 
                       ? 'whatsapp-bubble-bot self-start rounded-bl-sm shadow-sm' 
                       : 'whatsapp-bubble-user self-end rounded-br-sm shadow-sm'
@@ -199,7 +345,7 @@ const ChatDemo = () => {
                     dangerouslySetInnerHTML={{ __html: message.text }} 
                     className="leading-relaxed"
                   />
-                  <div className="text-xs opacity-70 mt-1 text-right">
+                  <div className="text-xs opacity-70 mt-2 text-right">
                     {message.time}
                   </div>
                 </div>
@@ -224,7 +370,7 @@ const ChatDemo = () => {
                 aria-label="Kirim pesan"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5" aria-hidden="true">
-                  <path d="M2.516 2.148a.75.75 0 01.83-.112l18 9a.75.75 0 010 1.348l-18 9A.75.75 0 011.5 20.25l2.54-8.466a.75.75 0 01.516-.516L13.022 8.75a.25.25 0 000-.5L4.556 5.71a.75.75 0 01-.516-.516L1.61 2.3a.75.75 0 01.906-.152z"/>
+                  <path d="M3.478 2.375A.75.75 0 014.25 2.25h15.5a.75.75 0 01.815.79l-1.55 12.875a.75.75 0 01-1.496.074l-4.793-1.611a.75.75 0 00-.738 0L8.761 15.5a.75.75 0 01-1.496-.074L3.478 3.165a.75.75 0 01.0-.79z" />
                 </svg>
               </Button>
             </div>
