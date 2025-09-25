@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useI18n } from "@/lib/i18n";
 
 interface ChatState {
   currentMenu: string;
@@ -305,14 +306,15 @@ const ChatDemo = () => {
     addMessage(menus.main.message!, 'bot');
   }, []);
 
+  const { t } = useI18n();
   return (
     <section id="demo" className="py-20 px-4 bg-background text-center">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold mb-4 animate-fade-in">
-          Mockup Interaktif
+          {t('demo_heading')}
         </h2>
         <p className="text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in">
-          Simulasi alur kerja Motoris—ketik pesan untuk mencoba fitur lengkap bot WhatsApp.
+          {t('demo_subtitle')}
         </p>
         
         <div className="flex items-center justify-center">
@@ -324,8 +326,8 @@ const ChatDemo = () => {
             {/* Chat Header */}
             <div className="whatsapp-header text-white px-4 py-4 rounded-t-3xl flex items-center">
               <div className="flex flex-col text-left">
-                <span className="font-semibold text-lg">Rodaya</span>
-                <span className="text-xs opacity-90">Bot Motoris FMCG</span>
+                <span className="font-semibold text-lg">Field Sales Bot</span>
+                <span className="text-xs opacity-90">FMCG Assistant</span>
               </div>
             </div>
 
