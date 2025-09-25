@@ -19,7 +19,10 @@ interface MenuData {
   generate?: () => string;
 }
 
+import { useLanguage } from "@/hooks/useLanguage";
+
 const ChatDemo = () => {
+  const { t } = useLanguage();
   const [messages, setMessages] = useState<Array<{ text: string; type: 'bot' | 'user'; time: string }>>([]);
   const [inputValue, setInputValue] = useState("");
   const [chatState, setChatState] = useState<ChatState>({

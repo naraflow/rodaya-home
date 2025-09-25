@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const CallToAction = () => {
+  const { t } = useLanguage();
   return (
     <section id="kontak" className="py-20 px-4 bg-muted text-center">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold mb-4 animate-fade-in">
-          Siap Ubah Cara Kerja Tim Anda?
+          {t('cta.title')}
         </h2>
         <p className="text-muted-foreground mb-8 max-w-xl mx-auto animate-fade-in">
-          Hubungi kami untuk demo langsung Rodaya Motoris.
+          {t('cta.description')}
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in">

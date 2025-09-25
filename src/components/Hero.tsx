@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const Hero = () => {
+  const { t } = useLanguage();
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -21,16 +23,20 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6 animate-fade-in text-white drop-shadow-lg">
-          Sederhanakan{" "}
-          <span className="bg-gradient-accent bg-clip-text text-transparent">
-            Pekerjaan Motoris
+          {t('hero.title')}{" "}
+          <span className="relative inline-block">
+            <span className="bg-gradient-accent bg-clip-text text-transparent font-black text-5xl md:text-7xl drop-shadow-2xl animate-pulse">
+              {t('hero.title.highlight')}
+            </span>
+            <div className="absolute -inset-2 bg-white/20 blur-xl rounded-lg -z-10 animate-pulse"></div>
+            <div className="absolute -inset-1 bg-gradient-primary/30 blur-lg rounded-lg -z-10"></div>
           </span>
           <br className="hidden md:block"/>
-          dengan Bot WhatsApp
+          {t('hero.title.suffix')}
         </h1>
         
         <p className="text-lg md:text-xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed animate-fade-in drop-shadow-sm">
-          Rodaya Motoris adalah solusi WhatsApp-first untuk tim FMCG. Catat kunjungan, stok, order, dan materi promosi lebih cepat, rapi, dan otomatis—tanpa aplikasi tambahan.
+          {t('hero.description')}
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in">
@@ -39,7 +45,7 @@ const Hero = () => {
             size="lg"
             className="bg-white text-primary hover:bg-white/90 shadow-glow transition-all px-7 py-3 font-semibold"
           >
-            Coba Demo
+            {t('hero.cta.demo')}
           </Button>
           <Button 
             onClick={() => scrollToSection('kontak')} 
@@ -47,7 +53,7 @@ const Hero = () => {
             size="lg"
             className="border-white/50 text-white hover:bg-white/10 backdrop-blur-sm px-7 py-3 font-semibold transition-all"
           >
-            Hubungi Kami
+            {t('hero.cta.contact')}
           </Button>
         </div>
       </div>

@@ -1,4 +1,7 @@
+import { useLanguage } from "@/hooks/useLanguage";
+
 const Workflow = () => {
+  const { t } = useLanguage();
   const steps = [
     {
       number: 1,

@@ -1,4 +1,7 @@
+import { useLanguage } from "@/hooks/useLanguage";
+
 const Footer = () => {
+  const { t } = useLanguage();
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -57,7 +60,7 @@ const Footer = () => {
         </div>
         
         <p className="text-sm opacity-80">
-          © 2025 Rodaya Motoris · Part of Naraflow Ecosystem
+          {t('footer.copyright')}
         </p>
       </div>
     </footer>

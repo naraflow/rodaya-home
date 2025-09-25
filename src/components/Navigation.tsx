@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -15,21 +17,12 @@ const Navigation = () => {
   return (
     <nav className="bg-background/90 backdrop-blur-md shadow-sm border-b sticky top-0 z-50" role="navigation" aria-label="Primary">
       <div className="container mx-auto flex justify-between items-center px-4 py-4">
-        {/* Logo */}
+        {/* Brand Text Only */}
         <button 
           onClick={() => scrollToSection('hero')}
-          className="flex items-center text-2xl font-bold hover:opacity-80 transition-opacity"
+          className="text-2xl font-bold hover:opacity-80 transition-opacity"
           aria-label="Beranda Rodaya Motoris"
         >
-          <svg 
-            aria-hidden="true" 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 512 512" 
-            className="h-8 w-8 mr-2"
-          >
-            <rect width="512" height="512" rx="100" fill="hsl(var(--primary))"></rect>
-            <path fill="white" d="M150 350h60l20-50h70l30 50h60l-50-90 40-40-30-30h-80l-40-60h-60l10 60-30 30 40 40-40 90z"></path>
-          </svg>
           <span className="bg-gradient-primary bg-clip-text text-transparent">
             Rodaya Motoris
           </span>
@@ -41,25 +34,46 @@ const Navigation = () => {
             onClick={() => scrollToSection('fitur')} 
             className="nav-link text-foreground hover:text-primary transition-colors"
           >
-            Fitur
+            {t('nav.features')}
           </button>
           <button 
             onClick={() => scrollToSection('alur')} 
             className="nav-link text-foreground hover:text-primary transition-colors"
           >
-            Alur Kerja
+            {t('nav.workflow')}
           </button>
           <button 
             onClick={() => scrollToSection('demo')} 
             className="nav-link text-foreground hover:text-primary transition-colors"
           >
-            Demo
+            {t('nav.demo')}
           </button>
+          
+          {/* Language Switch */}
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => setLanguage('id')}
+              className={`px-2 py-1 text-sm rounded transition-colors ${
+                language === 'id' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-primary'
+              }`}
+            >
+              ID
+            </button>
+            <button
+              onClick={() => setLanguage('en')}
+              className={`px-2 py-1 text-sm rounded transition-colors ${
+                language === 'en' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-primary'
+              }`}
+            >
+              EN
+            </button>
+          </div>
+          
           <Button 
             onClick={() => scrollToSection('kontak')}
             className="bg-gradient-primary hover:opacity-90 shadow-glow transition-all"
           >
-            Hubungi Kami
+            {t('nav.contact')}
           </Button>
         </div>
 
@@ -93,28 +107,49 @@ const Navigation = () => {
               className="block w-full text-left px-4 py-2 hover:bg-accent rounded-lg transition-colors"
               role="menuitem"
             >
-              Fitur
+              {t('nav.features')}
             </button>
             <button 
               onClick={() => scrollToSection('alur')}
               className="block w-full text-left px-4 py-2 hover:bg-accent rounded-lg transition-colors"
               role="menuitem"
             >
-              Alur Kerja
+              {t('nav.workflow')}
             </button>
             <button 
               onClick={() => scrollToSection('demo')}
               className="block w-full text-left px-4 py-2 hover:bg-accent rounded-lg transition-colors"
               role="menuitem"
             >
-              Demo
+              {t('nav.demo')}
             </button>
+            
+            {/* Mobile Language Switch */}
+            <div className="flex space-x-2 px-4 py-2">
+              <button
+                onClick={() => setLanguage('id')}
+                className={`px-3 py-1 text-sm rounded transition-colors ${
+                  language === 'id' ? 'bg-primary text-primary-foreground' : 'bg-accent text-accent-foreground'
+                }`}
+              >
+                ID
+              </button>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-3 py-1 text-sm rounded transition-colors ${
+                  language === 'en' ? 'bg-primary text-primary-foreground' : 'bg-accent text-accent-foreground'
+                }`}
+              >
+                EN
+              </button>
+            </div>
+            
             <Button 
               onClick={() => scrollToSection('kontak')}
               className="w-full bg-gradient-primary hover:opacity-90 mt-2"
               role="menuitem"
             >
-              Hubungi Kami
+              {t('nav.contact')}
             </Button>
           </div>
         </div>
