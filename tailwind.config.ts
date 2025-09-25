@@ -76,7 +76,10 @@ export default {
       },
       backgroundImage: {
         'gradient-hero': 'var(--gradient-hero)',
-        'gradient-primary': 'var(--gradient-primary)'
+        'gradient-hero-vibrant': 'var(--gradient-hero-vibrant)',
+        'gradient-hero-overlay': 'var(--gradient-hero-overlay)',
+        'gradient-primary': 'var(--gradient-primary)',
+        'gradient-accent': 'var(--gradient-accent)'
       },
       borderRadius: {
         lg: "var(--radius)",
