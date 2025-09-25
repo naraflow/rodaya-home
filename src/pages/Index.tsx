@@ -6,25 +6,10 @@ import Workflow from "@/components/Workflow";
 import ChatDemo from "@/components/ChatDemo";
 import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
-import { LanguageProvider } from "@/hooks/useLanguage";
+// Removed stray LanguageProvider import from unresolved merge
 
 const Index = () => {
   return (
-<<<<<<< Updated upstream
-    <LanguageProvider>
-      <div className="min-h-screen bg-background">
-        <Navigation />
-        <main>
-          <Hero />
-          <Features />
-          <Workflow />
-          <ChatDemo />
-          <CallToAction />
-        </main>
-        <Footer />
-      </div>
-    </LanguageProvider>
-=======
     <div className="min-h-screen bg-background">
       <Navigation />
       <main>
@@ -37,7 +22,6 @@ const Index = () => {
       </main>
       <Footer />
     </div>
->>>>>>> Stashed changes
   );
 };
 
