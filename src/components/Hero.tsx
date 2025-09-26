@@ -51,7 +51,7 @@ const Hero = () => {
             onClick={() => scrollToSection('kontak')} 
             variant="outline"
             size="lg"
-            className="border-white/50 text-white hover:bg-white/10 backdrop-blur-sm px-7 py-3 font-semibold transition-all"
+            className="border-white/50 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm px-7 py-3 font-semibold transition-all"
           >
             {t('hero.cta.contact')}
           </Button>
