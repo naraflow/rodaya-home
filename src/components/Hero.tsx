@@ -25,11 +25,11 @@ const Hero = () => {
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6 animate-fade-in text-white drop-shadow-lg">
           {t('hero.title')}{" "}
           <span className="relative inline-block">
-            <span className="bg-gradient-accent bg-clip-text text-transparent font-black text-5xl md:text-7xl drop-shadow-2xl animate-pulse">
+            <span className="text-white font-black text-5xl md:text-7xl drop-shadow-2xl animate-pulse bg-primary-600 px-4 py-2 rounded-lg">
               {t('hero.title.highlight')}
             </span>
-            <div className="absolute -inset-2 bg-white/20 blur-xl rounded-lg -z-10 animate-pulse"></div>
-            <div className="absolute -inset-1 bg-gradient-primary/30 blur-lg rounded-lg -z-10"></div>
+            <div className="absolute -inset-2 bg-primary-600/20 blur-xl rounded-lg -z-10 animate-pulse"></div>
+            <div className="absolute -inset-1 bg-primary-600/40 blur-lg rounded-lg -z-10"></div>
           </span>
           <br className="hidden md:block"/>
           {t('hero.title.suffix')}
@@ -49,9 +49,9 @@ const Hero = () => {
           </Button>
           <Button 
             onClick={() => scrollToSection('kontak')} 
-            variant="outline"
+            variant="hero-outline"
             size="lg"
-            className="border-white/50 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm px-7 py-3 font-semibold transition-all"
+            className="backdrop-blur-sm px-7 py-3 font-semibold transition-all"
           >
             {t('hero.cta.contact')}
           </Button>

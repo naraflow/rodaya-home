@@ -17,11 +17,13 @@
     --popover: 0 0% 100%;
     --popover-foreground: 218 11% 15%;
 
-    /* Rodaya Orange Brand Colors */
+    /* Rodaya Orange Brand Colors - More Pastel */
     --primary: 22 92% 55%;  /* #F97316 */
     --primary-foreground: 0 0% 100%;
     --primary-600: 24 84% 48%;  /* #ea580c */
     --primary-glow: 22 92% 70%;
+    --primary-pastel: 22 60% 75%;  /* Pastel orange */
+    --primary-pastel-light: 22 70% 85%;  /* Lighter pastel */
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 218 11% 15%;
@@ -47,12 +49,12 @@
     --whatsapp-bg: 120 7% 85%;  /* #e5ddd5 */
     --whatsapp-bubble-out: 78 46% 84%;  /* #DCF8C6 */
 
-    /* Custom Gradients */
+    /* Custom Gradients - More Pastel */
     --gradient-hero: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--background)) 50%, hsl(var(--background)) 100%);
-    --gradient-hero-vibrant: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-600)) 35%, hsl(var(--primary)) 100%);
-    --gradient-hero-overlay: linear-gradient(135deg, hsl(var(--primary) / 0.95) 0%, hsl(var(--primary-600) / 0.9) 50%, hsl(var(--primary) / 0.95) 100%);
+    --gradient-hero-vibrant: linear-gradient(135deg, hsl(var(--primary-pastel)) 0%, hsl(var(--primary-pastel-light)) 35%, hsl(var(--primary-pastel)) 100%);
+    --gradient-hero-overlay: linear-gradient(135deg, hsl(var(--primary-pastel) / 0.8) 0%, hsl(var(--primary-pastel-light) / 0.7) 50%, hsl(var(--primary-pastel) / 0.8) 100%);
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-600)) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(var(--accent-foreground)) 0%, hsl(var(--background)) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(var(--primary-600)) 0%, hsl(var(--primary)) 100%);
     
     /* Shadows */
     --shadow-glow: 0 0 40px hsl(var(--primary) / 0.15);
