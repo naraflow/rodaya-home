@@ -1,14 +1,7 @@
-<<<<<<< Updated upstream
 import { useLanguage } from "@/hooks/useLanguage";
 
 const Footer = () => {
   const { t } = useLanguage();
-=======
-import { useI18n } from "@/lib/i18n";
-
-const Footer = () => {
-  const { t, lang, setLang } = useI18n();
->>>>>>> Stashed changes
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -66,25 +59,8 @@ const Footer = () => {
           </button>
         </div>
         
-        {/* Language Switcher */}
-        <div className="mb-4">
-          <select
-            aria-label="Select language"
-            value={lang}
-            onChange={(e) => setLang(e.target.value as any)}
-            className="border border-background/20 rounded-md px-3 py-2 text-sm bg-foreground text-background hover:border-primary focus:border-primary focus:ring-1 focus:ring-primary transition-colors cursor-pointer"
-          >
-            <option value="id">🇮🇩 Indonesia</option>
-            <option value="en">🇺🇸 English</option>
-          </select>
-        </div>
-        
         <p className="text-sm opacity-80">
-<<<<<<< Updated upstream
           {t('footer.copyright')}
-=======
-          {t('footer_copyright')}
->>>>>>> Stashed changes
         </p>
       </div>
     </footer>

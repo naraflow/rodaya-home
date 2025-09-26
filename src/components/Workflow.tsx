@@ -1,14 +1,7 @@
-<<<<<<< Updated upstream
 import { useLanguage } from "@/hooks/useLanguage";
 
 const Workflow = () => {
   const { t } = useLanguage();
-=======
-import { useI18n } from "@/lib/i18n";
-
-const Workflow = () => {
-  const { t } = useI18n();
->>>>>>> Stashed changes
   const steps = [
     {
       number: 1,
@@ -60,7 +53,7 @@ const Workflow = () => {
     <section id="alur" className="py-20 bg-muted px-4">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-14 animate-fade-in">
-          {t('workflow_heading')}
+          Alur Kerja Sederhana
         </h2>
         
         <div className="relative max-w-4xl mx-auto">

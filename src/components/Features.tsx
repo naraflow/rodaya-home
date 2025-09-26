@@ -1,14 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { useI18n } from "@/lib/i18n";
 
 import { useLanguage } from "@/hooks/useLanguage";
 
 const Features = () => {
-<<<<<<< Updated upstream
   const { t } = useLanguage();
-=======
-  const { t } = useI18n();
->>>>>>> Stashed changes
   const features = [
     {
       icon: "📱",
@@ -52,11 +47,7 @@ const Features = () => {
     <section id="fitur" className="py-20 px-4 bg-background">
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-14 animate-fade-in">
-<<<<<<< Updated upstream
           {t('features.title')}
-=======
-          {t('features_heading')}
->>>>>>> Stashed changes
         </h2>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
