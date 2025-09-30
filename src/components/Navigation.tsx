@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/hooks/useLanguage";
+import rodayaLogo from "@/assets/rodaya_logo.png";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,13 +18,14 @@ const Navigation = () => {
   return (
     <nav className="bg-background/90 backdrop-blur-md shadow-sm border-b sticky top-0 z-50" role="navigation" aria-label="Primary">
       <div className="container mx-auto flex justify-between items-center px-4 py-4">
-        {/* Brand Text Only */}
+        {/* Brand with Logo */}
         <button 
           onClick={() => scrollToSection('hero')}
-          className="text-2xl font-bold hover:opacity-80 transition-opacity"
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           aria-label="Beranda Rodaya Motoris"
         >
-          <span className="bg-gradient-primary bg-clip-text text-transparent">
+          <img src={rodayaLogo} alt="Rodaya Logo" className="w-10 h-10" />
+          <span className="text-xl font-bold text-foreground">
             Rodaya Motoris
           </span>
         </button>
@@ -37,16 +39,16 @@ const Navigation = () => {
             {t('nav.features')}
           </button>
           <button 
-            onClick={() => scrollToSection('alur')} 
-            className="nav-link text-foreground hover:text-primary transition-colors"
-          >
-            {t('nav.workflow')}
-          </button>
-          <button 
             onClick={() => scrollToSection('demo')} 
             className="nav-link text-foreground hover:text-primary transition-colors"
           >
             {t('nav.demo')}
+          </button>
+          <button 
+            onClick={() => scrollToSection('dashboard')} 
+            className="nav-link text-foreground hover:text-primary transition-colors"
+          >
+            Dashboard
           </button>
           
           {/* Language Switch */}
@@ -110,18 +112,18 @@ const Navigation = () => {
               {t('nav.features')}
             </button>
             <button 
-              onClick={() => scrollToSection('alur')}
-              className="block w-full text-left px-4 py-2 hover:bg-accent rounded-lg transition-colors"
-              role="menuitem"
-            >
-              {t('nav.workflow')}
-            </button>
-            <button 
               onClick={() => scrollToSection('demo')}
               className="block w-full text-left px-4 py-2 hover:bg-accent rounded-lg transition-colors"
               role="menuitem"
             >
               {t('nav.demo')}
+            </button>
+            <button 
+              onClick={() => scrollToSection('dashboard')}
+              className="block w-full text-left px-4 py-2 hover:bg-accent rounded-lg transition-colors"
+              role="menuitem"
+            >
+              Dashboard
             </button>
             
             {/* Mobile Language Switch */}

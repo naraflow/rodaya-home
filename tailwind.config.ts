@@ -22,8 +22,8 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          600: "hsl(var(--primary-600))",
-          glow: "hsl(var(--primary-glow))"
+          dark: "hsl(var(--primary-dark))",
+          light: "hsl(var(--primary-light))"
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -65,6 +65,10 @@ export default {
           bg: "hsl(var(--whatsapp-bg))",
           bubble: "hsl(var(--whatsapp-bubble-out))"
         },
+        "accent-green": "hsl(var(--accent-green))",
+        "accent-orange": "hsl(var(--accent-orange))",
+        "dark-navy": "hsl(var(--dark-navy))",
+        "dark-slate": "hsl(var(--dark-slate))",
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
@@ -76,10 +80,9 @@ export default {
       },
       backgroundImage: {
         'gradient-hero': 'var(--gradient-hero)',
-        'gradient-hero-vibrant': 'var(--gradient-hero-vibrant)',
-        'gradient-hero-overlay': 'var(--gradient-hero-overlay)',
+        'gradient-hero-dark': 'var(--gradient-hero-dark)',
         'gradient-primary': 'var(--gradient-primary)',
-        'gradient-accent': 'var(--gradient-accent)'
+        'gradient-card': 'var(--gradient-card)'
       },
       borderRadius: {
         lg: "var(--radius)",

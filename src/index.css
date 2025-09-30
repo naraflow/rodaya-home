@@ -17,16 +17,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 218 11% 15%;
 
-    /* Rodaya Brand Colors - Dark Theme */
-    --primary: 168 76% 42%;  /* Teal/Turquoise */
+    /* Rodaya Brand Colors - Orange Identity */
+    --primary: 22 92% 55%;  /* Rodaya Orange #F97316 */
     --primary-foreground: 0 0% 100%;
-    --primary-dark: 192 91% 20%;  /* Dark teal */
-    --primary-light: 168 76% 60%;  /* Light teal */
+    --primary-dark: 24 84% 48%;  /* Darker orange #ea580c */
+    --primary-light: 22 92% 70%;  /* Lighter orange */
     
     --dark-navy: 200 35% 15%;  /* Dark navy background */
     --dark-slate: 200 20% 20%;  /* Slightly lighter navy */
     
-    --accent-teal: 168 76% 42%;  /* Teal accent */
+    --accent-orange: 22 92% 55%;  /* Rodaya Orange accent */
     --accent-green: 142 70% 49%;  /* WhatsApp green */
 
     --secondary: 210 40% 96.1%;
@@ -35,15 +35,15 @@
     --muted: 220 14% 96%;
     --muted-foreground: 220 9% 46%;
 
-    --accent: 168 93% 96%;  /* Light teal accent */
-    --accent-foreground: 168 76% 42%;
+    --accent: 22 93% 96%;  /* Light orange accent */
+    --accent-foreground: 22 92% 55%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 168 76% 42%;
+    --ring: 22 92% 55%;
 
     --radius: 0.5rem;
 
@@ -53,14 +53,14 @@
     --whatsapp-bg: 120 7% 85%;  /* #e5ddd5 */
     --whatsapp-bubble-out: 78 46% 84%;  /* #DCF8C6 */
 
-    /* Custom Gradients - Dark Theme */
+    /* Custom Gradients - Dark Theme with Orange */
     --gradient-hero: linear-gradient(135deg, hsl(var(--dark-navy)) 0%, hsl(var(--dark-slate)) 100%);
     --gradient-hero-dark: linear-gradient(135deg, hsl(200 35% 12%) 0%, hsl(200 35% 18%) 100%);
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-light)) 100%);
     --gradient-card: linear-gradient(135deg, hsl(var(--dark-slate)) 0%, hsl(var(--dark-navy)) 100%);
     
-    /* Shadows */
-    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
+    /* Shadows with Orange Glow */
+    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.4);
     --shadow-float: 0 20px 40px hsl(0 0% 0% / 0.3);
     --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.2);
 
@@ -78,7 +78,7 @@
     --popover: 200 20% 20%;
     --popover-foreground: 0 0% 100%;
 
-    --primary: 168 76% 42%;
+    --primary: 22 92% 55%;  /* Rodaya Orange */
     --primary-foreground: 0 0% 100%;
 
     --secondary: 200 20% 25%;
@@ -92,7 +92,7 @@
 
     --border: 200 20% 30%;
     --input: 200 20% 30%;
-    --ring: 168 76% 42%;
+    --ring: 22 92% 55%;  /* Rodaya Orange */
   }
 }
 
