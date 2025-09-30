@@ -59,29 +59,36 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right side - Stats Card */}
-          <div className="animate-fade-in">
-            <Card className="bg-gradient-card border-white/10 p-6 backdrop-blur-sm shadow-float">
-              <div className="text-white/60 text-sm font-medium mb-4 uppercase tracking-wider">
-                Hari Ini
-              </div>
+          {/* Right side - Stats Card - 3D Modern Design */}
+          <div className="animate-fade-in perspective-1000">
+            <Card className="bg-gradient-card border-white/10 p-6 backdrop-blur-sm shadow-float relative overflow-hidden transform hover:scale-105 transition-all duration-500 hover:shadow-glow animate-float" style={{ transformStyle: 'preserve-3d', transform: 'rotateX(5deg) rotateY(-5deg)' }}>
+              {/* 3D Depth Layers */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-50"></div>
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
               
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <div className="text-white/60 text-sm mb-1">Kunjungan</div>
-                  <div className="text-4xl font-bold text-white">12</div>
+              <div className="relative z-10">
+                <div className="text-white/60 text-sm font-medium mb-4 uppercase tracking-wider flex items-center gap-2">
+                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                  Hari Ini
                 </div>
-                <div>
-                  <div className="text-white/60 text-sm mb-1">Order</div>
-                  <div className="text-4xl font-bold text-white">45</div>
-                </div>
-                <div>
-                  <div className="text-white/60 text-sm mb-1">POSM</div>
-                  <div className="text-4xl font-bold text-white">7</div>
-                </div>
-                <div>
-                  <div className="text-white/60 text-sm mb-1">Outlet Aktif</div>
-                  <div className="text-4xl font-bold text-white">3</div>
+                
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="bg-white/5 p-4 rounded-lg backdrop-blur-sm hover:bg-white/10 transition-all duration-300 transform hover:translate-y-[-4px]">
+                    <div className="text-white/60 text-sm mb-1">Kunjungan</div>
+                    <div className="text-4xl font-bold text-white">12</div>
+                  </div>
+                  <div className="bg-white/5 p-4 rounded-lg backdrop-blur-sm hover:bg-white/10 transition-all duration-300 transform hover:translate-y-[-4px]">
+                    <div className="text-white/60 text-sm mb-1">Order</div>
+                    <div className="text-4xl font-bold text-white">45</div>
+                  </div>
+                  <div className="bg-white/5 p-4 rounded-lg backdrop-blur-sm hover:bg-white/10 transition-all duration-300 transform hover:translate-y-[-4px]">
+                    <div className="text-white/60 text-sm mb-1">POSM</div>
+                    <div className="text-4xl font-bold text-white">7</div>
+                  </div>
+                  <div className="bg-white/5 p-4 rounded-lg backdrop-blur-sm hover:bg-white/10 transition-all duration-300 transform hover:translate-y-[-4px]">
+                    <div className="text-white/60 text-sm mb-1">Outlet Aktif</div>
+                    <div className="text-4xl font-bold text-white">3</div>
+                  </div>
                 </div>
               </div>
             </Card>

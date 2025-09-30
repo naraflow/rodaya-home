@@ -118,8 +118,12 @@
   }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-6px); }
+    0%, 100% { transform: translateY(0px) translateZ(0px); }
+    50% { transform: translateY(-10px) translateZ(10px); }
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
   }
 
   .message-enter {
