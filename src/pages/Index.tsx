@@ -1,8 +1,8 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
-import Workflow from "@/components/Workflow";
 import ChatDemo from "@/components/ChatDemo";
+import Dashboard from "@/components/Dashboard";
 import CallToAction from "@/components/CallToAction";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/hooks/useLanguage";
@@ -15,8 +15,8 @@ const Index = () => {
         <main>
           <Hero />
           <Features />
-          <Workflow />
           <ChatDemo />
+          <Dashboard />
           <CallToAction />
         </main>
         <Footer />
