@@ -61,7 +61,7 @@ const Hero = () => {
 
           {/* Right side - Stats Card - 3D Modern Design */}
           <div className="animate-fade-in perspective-1000">
-            <Card className="bg-gradient-card border-white/10 p-6 backdrop-blur-sm shadow-float relative overflow-hidden transform hover:scale-105 transition-all duration-500 hover:shadow-glow animate-float" style={{ transformStyle: 'preserve-3d', transform: 'rotateX(5deg) rotateY(-5deg)' }}>
+            <Card className="bg-gradient-card border-white/10 p-6 backdrop-blur-sm shadow-float relative overflow-hidden transform hover:scale-105 transition-all duration-500 hover:shadow-glow" style={{ transformStyle: 'preserve-3d', transform: 'rotateX(5deg) rotateY(-5deg)' }}>
               {/* 3D Depth Layers */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-50"></div>
               <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
