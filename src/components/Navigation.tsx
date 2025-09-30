@@ -44,12 +44,6 @@ const Navigation = () => {
           >
             {t('nav.demo')}
           </button>
-          <button 
-            onClick={() => scrollToSection('dashboard')} 
-            className="nav-link text-foreground hover:text-primary transition-colors"
-          >
-            Dashboard
-          </button>
           
           {/* Language Switch */}
           <div className="flex items-center space-x-2">
@@ -117,13 +111,6 @@ const Navigation = () => {
               role="menuitem"
             >
               {t('nav.demo')}
-            </button>
-            <button 
-              onClick={() => scrollToSection('dashboard')}
-              className="block w-full text-left px-4 py-2 hover:bg-accent rounded-lg transition-colors"
-              role="menuitem"
-            >
-              Dashboard
             </button>
             
             {/* Mobile Language Switch */}
