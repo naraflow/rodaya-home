@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useLanguage } from "@/hooks/useLanguage";
+import heroBackground from "@/assets/hero-motorist.jpg";
 
 const Hero = () => {
   const { t } = useLanguage();
@@ -14,7 +15,13 @@ const Hero = () => {
   return (
     <header 
       id="hero"
-      className="relative py-20 md:py-28 bg-gradient-hero-dark overflow-hidden"
+      className="relative py-20 md:py-28 overflow-hidden"
+      style={{
+        backgroundImage: `linear-gradient(rgba(15, 18, 33, 0.85), rgba(15, 18, 33, 0.85)), url(${heroBackground})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
